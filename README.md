@@ -73,6 +73,23 @@ FROM split_products;
 | 102     | Jane Smith    | Mouse        | 2        |
 | 103     | Emily Clark   | Phone        | 1        |
 
+Orders
+OrderID	CustomerName
+101	John Doe
+102	Jane Smith
+103	Emily Clark
+
+OrderItems
+OrderID	Product	Quantity
+101	Laptop	2
+101	Mouse	1
+102	Tablet	3
+102	Keyboard	1
+102	Mouse	2
+103	Phone	1
+
+
+
 - In the table above, the **CustomerName** column depends on **OrderID** (a partial dependency), which violates **2NF**. 
 
 - Write an SQL query to transform this table into **2NF** by removing partial dependencies. Ensure that each non-key column fully depends on the entire primary key.
