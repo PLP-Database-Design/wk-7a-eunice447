@@ -41,6 +41,24 @@ Task:
 - **Write an SQL query** to transform this table into **1NF**, ensuring that each row represents a single product for an order
 
 --- 
+WITH RECURSIVE split_products AS (
+  SELECT
+    OrderID,
+    CustomerName,
+    SUBSTRING_INDEX(Products, ',', 1) AS Product,
+    SUBSTRING(Products, LENGTH(SUBSTRING_INDEX(Products, ',', 1)) + 2) AS rest
+  FROM ProductDetail
+  UNION ALL
+  SELECT
+    OrderID,
+    CustomerName,
+    SUBSTRING_INDEX(rest, ',', 1),
+    SUBSTRING(rest, LENGTH(SUBSTRING_INDEX(rest, ',', 1)) + 2)
+  FROM split_products
+  WHERE rest <> ''
+)
+SELECT OrderID, CustomerName, TRIM(Product) AS Product
+FROM split_products;
 
 ### Question 2 Achieving 2NF (Second Normal Form) 🧩
 
